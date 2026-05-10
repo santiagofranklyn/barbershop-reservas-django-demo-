@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Mis Reservas{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/mis_reservas.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h1>Mis Reservas</h1>
+  <p class="subtitle">Aquí puedes ver y cancelar tus citas.</p>
+
+  <div class="grid">
+    {% for r in reservas %}
+      <div class="card">
+        <h3 class="reserva-servicio">{{ r.servicio }}</h3>
+
+        <p class="reserva-info">
+          Barbero:
+          {{ r.barbero.user.get_full_name|default:r.barbero.user.username }}
+        </p>
+
+        <p class="reserva-info">Fecha: {{ r.fecha }} - {{ r.hora }}</p>
+
+        <p class="reserva-estado">Estado: {{ r.estado }}</p>
+
+        {% if r.estado == "PENDIENTE" %}
+          <a href="{% url 'cancelar_reserva' r.id %}">
+            <button class="btn btn-cancelar">Cancelar</button>
+          </a>
+        {% endif %}
+      </div>
+
+    {% empty %}
+      <p>No tienes reservas aún.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}BarberShop{% endblock %}</title>
+
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="logo">BarberShop</div>
+
+    <div class="nav-links">
+      <a href="{% url 'home' %}">Inicio</a>
+      <a href="{% url 'servicios' %}">Servicios</a>
+      <a href="{% url 'barberos' %}">Barberos</a>
+      <a href="{% url 'reservas' %}">Reservar</a>
+
+     {% if user.is_authenticated %}
+  <a href="{% url 'mis_reservas' %}">Mis Reservas</a>
+
+  {% if user.rol == "BARBERO" %}
+    <a href="{% url 'agenda' %}">Mi Agenda</a>
+  {% endif %}
+
+  {% if user.is_superuser or user.rol == "ADMIN" %}
+    <a href="{% url 'clientes' %}">clientes</a>
+  {% endif %}
+
+  <a class="logout" href="{% url 'logout' %}">Salir</a>
+{% else %}
+  <a href="{% url 'login' %}">Login</a>
+  <a href="{% url 'register' %}">Registro</a>
+{% endif %}
+    </div>
+  </nav>
+
+  <main class="main-container">
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+      <div class="message {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 BarberShop - Reservas Online</p>
+  </footer>
+
+</body>
+
+</html>
+

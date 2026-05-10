@@ -1,0 +1,36 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Solicitud Enviada{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/confirmacion.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h1>Solicitud Enviada ⏳</h1>
+  <p class="subtitle">Tu reserva fue creada correctamente y está pendiente de aprobación.</p>
+
+  <div class="card confirmacion-card">
+    <h2 class="confirmacion-title">Detalles de tu Reserva</h2>
+
+    <p class="confirmacion-info"><strong>Barbero:</strong> {{ reserva.barbero.user.get_full_name|default:reserva.barbero.user.username }}</p>
+    <p class="confirmacion-info"><strong>Servicio:</strong> {{ reserva.servicio.nombre }}</p>
+    <p class="confirmacion-info"><strong>Fecha:</strong> {{ reserva.fecha }}</p>
+    <p class="confirmacion-info"><strong>Hora:</strong> {{ reserva.hora }}</p>
+
+    <p class="confirmacion-estado">
+      Estado: <span class="estado">{{ reserva.estado }}</span>
+    </p>
+
+    <div class="confirmacion-btns">
+      <a href="{% url 'mis_reservas' %}">
+        <button class="btn">Ver mis reservas</button>
+      </a>
+
+      <a href="{% url 'home' %}">
+        <button class="btn">Volver al inicio</button>
+      </a>
+    </div>
+  </div>
+{% endblock %}   

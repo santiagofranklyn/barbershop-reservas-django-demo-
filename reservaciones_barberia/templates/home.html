@@ -1,0 +1,67 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Reserva tu estilo en minutos</h1>
+<p class="subtitle">Los mejores barberos cerca de ti</p>
+
+<div class="card home-card">
+  <h2 class="home-title">¿Listo para tu cita?</h2>
+  <p class="home-text">Agenda tu corte o tu barba en segundos.</p>
+  <a href="{% url 'reservas' %}">
+  <button class="btn">Agendar cita</button>
+  </a>
+</div>
+
+<h2 class="home-section-title">Servicios Populares</h2>
+
+<div class="grid home-grid">
+  {% for s in servicios %}
+  <div class="card">
+    <h3 class="home-card-title">{{ s.nombre }}</h3>
+    <p class="home-card-desc">{{ s.descripcion|default:"Servicio profesional" }}</p>
+    <p class="home-precio">RD$ {{ s.precio }}</p>
+  </div>
+  {% empty %}
+  <p>No hay servicios disponibles.</p>
+  {% endfor %}
+</div>
+
+<h2 class="home-section-title home-section-spacing">Barberos Disponibles</h2>
+
+<div class="grid home-grid">
+
+  {% for b in barberos %}
+
+  <div class="card">
+
+    <h3 class="home-card-title">
+  {{ b.user.get_full_name|default:b.user.username }}
+</h3>
+
+<p class="home-card-desc">
+  📞 {{ b.user.telefono|default:"No disponible" }}
+</p>
+
+    <a href="{% url 'reservas' %}">
+      <button class="btn">
+        Reservar
+      </button>
+    </a>
+
+  </div>
+
+  {% empty %}
+
+  <p>No hay barberos disponibles.</p>
+
+  {% endfor %}
+
+</div>
+{% endblock %}

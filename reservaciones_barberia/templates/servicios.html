@@ -1,0 +1,30 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Servicios{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/servicios.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h1>Servicios</h1>
+  <p class="subtitle">Selecciona el servicio que deseas reservar.</p>
+
+  <div class="grid">
+    {% for s in servicios %}
+      <div class="card">
+        <h2 class="servicio-nombre">{{ s.nombre }}</h2>
+        <p class="servicio-desc">{{ s.descripcion }}</p>
+        <p class="servicio-precio">RD$ {{ s.precio }}</p>
+        <p class="servicio-duracion">Duración: {{ s.duracion_minutos }} min</p>
+
+        <a href="{% url 'reservas' %}">
+          <button class="btn">Reservar</button>
+        </a>
+      </div>
+    {% empty %}
+      <p>No hay servicios disponibles.</p>
+    {% endfor %}
+  </div>
+{% endblock %}   

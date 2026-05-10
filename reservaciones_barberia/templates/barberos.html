@@ -1,0 +1,42 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Barberos{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/barberos.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h1>Nuestros Barberos</h1>
+  <p class="subtitle">Elige tu barbero favorito y agenda tu cita.</p>
+
+  <div class="grid home-grid">
+
+    {% for b in barberos %}
+      <div class="card">
+
+        <h3 class="home-card-title">
+          {{ b.user.get_full_name|default:b.user.username }}
+        </h3>
+
+        <p class="home-card-desc">
+          {{ b.especialidad|default:"Sin especialidad" }}
+        </p>
+
+        <p class="home-card-desc">
+          📞 {{ b.user.telefono|default:"No disponible" }}
+        </p>
+
+        <a href="{% url 'reservas' %}">
+          <button class="btn">Reservar</button>
+        </a>
+
+      </div>
+
+    {% empty %}
+      <p>No hay barberos disponibles.</p>
+    {% endfor %}
+
+  </div>
+{% endblock %}

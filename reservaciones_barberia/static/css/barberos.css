@@ -1,0 +1,13 @@
+.barbero-nombre {
+  margin-top: 0;
+  color: white;
+}
+
+.barbero-info {
+  color: #bbb;
+}
+
+.barbero-rating {
+  color: #c59d5f;
+  font-weight: 700;
+}

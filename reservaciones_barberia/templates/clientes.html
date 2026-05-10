@@ -1,0 +1,43 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Clientes{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/clientes.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h1>Clientes Registrados</h1>
+  <p class="subtitle">Solo administradores pueden ver esta sección.</p>
+
+  <div class="card">
+    <table class="clientes-table">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for c in clientes %}
+          <tr>
+            <td>{{ c.username }}</td>
+            <td>{{ c.get_full_name|default:"-" }}</td>
+            <td>{{ c.email|default:"-" }}</td>
+            <td>{{ c.telefono|default:"-" }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4" class="clientes-empty">
+              No hay clientes registrados.
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

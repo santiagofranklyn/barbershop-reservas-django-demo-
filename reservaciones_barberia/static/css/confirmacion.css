@@ -1,0 +1,33 @@
+.confirmacion-card {
+  max-width: 650px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.confirmacion-title {
+  margin-top: 0;
+  color: white;
+}
+
+.confirmacion-info {
+  color: #bbb;
+  font-size: 16px;
+}
+
+.confirmacion-estado {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #c59d5f;
+}
+
+.estado {
+  color: white;
+}
+
+.confirmacion-btns {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}

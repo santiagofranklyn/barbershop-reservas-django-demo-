@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro</title>
+  <link rel="stylesheet" href="{% static 'css/login_register.css' %}">
+</head>
+
+<body>
+
+  <div class="auth-card">
+    <h1>Crear Cuenta</h1>
+
+    <form method="POST" action="{% url 'register' %}">
+
+      {% csrf_token %}
+
+      {% if request.method == "POST" and form.errors %}
+      <div class="error-box">
+
+        {% for field in form %}
+        {% for error in field.errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+        {% endfor %}
+
+        {% for error in form.non_field_errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+
+      </div>
+      {% endif %}
+
+      <!-- DATOS USUARIO -->
+
+      <input type="text" name="first_name" placeholder="Nombre" required>
+
+      <input type="text" name="last_name" placeholder="Apellido" required>
+
+      <input type="text" name="username" placeholder="Nombre de usuario" required>
+
+      <input type="email" name="email" placeholder="Correo electrónico" required>
+
+      <input type="text" name="telefono" placeholder="Teléfono">
+
+      <input type="text" name="direccion" placeholder="Dirección">
+
+      <!-- PASSWORD -->
+
+      <input type="password" name="password1" placeholder="Contraseña" required>
+
+      <input type="password" name="password2" placeholder="Confirmar contraseña" required>
+
+      <button type="submit">
+        Registrarse
+      </button>
+
+    </form>
+
+    <p class="link-text">¿Ya tienes cuenta? <a href="{% url 'login' %}">Iniciar sesión</a></p>
+  </div>
+
+</body>
+
+</html>

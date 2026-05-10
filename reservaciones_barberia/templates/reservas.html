@@ -1,0 +1,43 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Reservar{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/reservas.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Reservar Cita</h1>
+<p class="subtitle">Elige barbero, servicio, fecha y hora.</p>
+
+<div class="card reservas-card">
+  <form method="POST" class="reservas-form">
+    {% csrf_token %}
+
+    <label class="reservas-label">Barbero</label>
+    <select name="barbero" required>
+      {% for b in barberos %}
+        <option value="{{ b.id }}">{{ b.user.get_full_name|default:b.user.username }}</option>
+      {% endfor %}
+    </select>
+
+    <label class="reservas-label">Servicio</label>
+    <select name="servicio" required>
+      {% for s in servicios %}
+        <option value="{{ s.id }}">{{ s.nombre }} - RD$ {{ s.precio }}</option>
+      {% endfor %}
+    </select>
+
+    <label class="reservas-label">Fecha</label>
+    <input type="date" name="fecha" required>
+
+    <label class="reservas-label">Hora</label>
+    <input type="time" name="hora" required>
+
+    <div class="reservas-btn-container">
+      <button class="btn" type="submit">Confirmar Reserva</button>
+    </div>
+  </form>
+</div>
+{% endblock %} 

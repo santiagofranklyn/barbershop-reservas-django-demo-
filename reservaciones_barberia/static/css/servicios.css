@@ -1,0 +1,17 @@
+.servicio-nombre {
+  margin-top: 0;
+  color: white;
+}
+
+.servicio-desc {
+  color: #bbb;
+}
+
+.servicio-precio {
+  color: #c59d5f;
+  font-weight: 700;
+}
+
+.servicio-duracion {
+  color: #aaa;
+}  

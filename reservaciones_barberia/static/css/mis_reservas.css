@@ -1,0 +1,16 @@
+.reserva-servicio {
+  margin-top: 0;
+}
+
+.reserva-info {
+  color: #bbb;
+}
+
+.reserva-estado {
+  font-weight: 700;
+  color: #c59d5f;
+}
+
+.btn-cancelar {
+  background: #a33;
+} 

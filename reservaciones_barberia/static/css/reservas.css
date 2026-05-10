@@ -1,0 +1,24 @@
+.reservas-card {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.reservas-label {
+  display: block;
+  margin-top: 12px;
+  color: #c59d5f;
+}
+
+.reservas-form select,
+.reservas-form input,
+.reservas-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: none;
+}
+
+.reservas-btn-container {
+  margin-top: 18px;
+}

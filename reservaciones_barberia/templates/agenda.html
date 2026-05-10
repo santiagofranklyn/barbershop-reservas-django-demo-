@@ -1,0 +1,64 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Agenda{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/agenda.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h1>Mi Agenda</h1>
+
+  <p class="subtitle">
+    Reservas asignadas para
+    {{ barbero.user.get_full_name|default:barbero.user.username }}
+  </p>
+
+  <div class="card">
+    <table class="agenda-table">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Servicio</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for r in reservas %}
+          <tr>
+            <td>{{ r.cliente.get_full_name|default:r.cliente.username }}</td>
+            <td>{{ r.servicio.nombre }}</td>
+            <td>{{ r.fecha }}</td>
+            <td>{{ r.hora }}</td>
+            <td>{{ r.estado }}</td>
+
+            <td>
+              {% if r.estado == "PENDIENTE" %}
+                <a href="{% url 'cambiar_estado_reserva' r.id 'CONFIRMADA' %}">
+                  <button class="btn btn-confirmar">Confirmar</button>
+                </a>
+
+                <a href="{% url 'cambiar_estado_reserva' r.id 'RECHAZADA' %}">
+                  <button class="btn btn-rechazar">Rechazar</button>
+                </a>
+              {% else %}
+                -
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6" class="agenda-empty">
+              No tienes reservas pendientes.
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
