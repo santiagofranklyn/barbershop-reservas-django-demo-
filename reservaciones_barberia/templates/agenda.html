@@ -39,6 +39,7 @@
 
             <td>
               {% if r.estado == "PENDIENTE" %}
+              <div class="acciones-btns">
                 <a href="{% url 'cambiar_estado_reserva' r.id 'CONFIRMADA' %}">
                   <button class="btn btn-confirmar">Confirmar</button>
                 </a>
@@ -46,6 +47,8 @@
                 <a href="{% url 'cambiar_estado_reserva' r.id 'RECHAZADA' %}">
                   <button class="btn btn-rechazar">Rechazar</button>
                 </a>
+              </div>
+                
               {% else %}
                 -
               {% endif %}
