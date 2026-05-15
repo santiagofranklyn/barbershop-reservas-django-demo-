@@ -1,3 +1,5 @@
+from os import name
+
 from django.urls import path
 from . import views
 
@@ -18,6 +20,9 @@ urlpatterns = [
 
     path("agenda/", views.agenda_view, name="agenda"),
     path("agenda/<int:reserva_id>/<str:estado>/", views.cambiar_estado_reserva, name="cambiar_estado_reserva"),
+    
 ]
+
+
 
 

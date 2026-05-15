@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import HttpResponseForbidden 
 
 from .models import Barbero, Servicio, Reserva, Usuario
 
@@ -51,6 +52,8 @@ def register_view(request):
 
 
 def login_view(request):
+    
+
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -64,6 +67,9 @@ def login_view(request):
             messages.error(request, "Usuario o contraseña incorrectos")
 
     return render(request, "login.html")
+
+        
+        
 
 
 def logout_view(request):
@@ -186,3 +192,4 @@ def clientes_view(request):
 
     clientes = Usuario.objects.filter(rol="CLIENTE")
     return render(request, "clientes.html", {"clientes": clientes})
+
