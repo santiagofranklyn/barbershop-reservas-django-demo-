@@ -1,0 +1,48 @@
+#header {
+  background: #1c1c1c !important;
+  border-bottom: 1px solid #2a2a2a !important;
+}
+
+#header h1 a {
+  color: #c59d5f !important;
+  font-weight: 800;
+}
+
+a:link,
+a:visited {
+  color: #c59d5f !important;
+}
+
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input {
+  background: #c59d5f !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background: #b88b4a !important;
+}
+
+body {
+  background: #111 !important;
+  color: white !important;
+}
+
+.module {
+  background: #1c1c1c !important;
+  border: 1px solid #2a2a2a !important;
+}
+
+.module h2,
+.module caption {
+  background: #1c1c1c !important;
+  color: #c59d5f !important;
+  font-weight: bold;
+}
