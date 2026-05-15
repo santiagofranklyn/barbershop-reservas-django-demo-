@@ -46,6 +46,10 @@
 </h3>
 
 <p class="home-card-desc">
+   {{ b.especialidad|default:"Sin especialidad" }}
+</p>
+
+<p class="home-card-desc">
   📞 {{ b.user.telefono|default:"No disponible" }}
 </p>
 

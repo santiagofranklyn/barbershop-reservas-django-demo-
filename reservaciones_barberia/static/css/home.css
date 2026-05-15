@@ -1,1 +1,49 @@
+/* Estilos específicos del HOME */
 
+/* Card principal (la primera que dice: listo para tu cita) */
+.home-card {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* Título dentro de la card principal */
+.home-title {
+  margin-top: 0;
+  color: white;
+}
+
+/* Texto dentro de la card principal */
+.home-text {
+  color: #bbb;
+  margin-bottom: 20px;
+}
+
+/* Títulos de secciones */
+.home-section-title {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+/* Separación extra para la sección de barberos */
+.home-section-spacing {
+  margin-top: 60px;
+}
+
+/* Título de cada card (servicio o barbero) */
+.home-card-title {
+  margin-top: 0;
+  color: white;
+}
+
+/* Texto normal dentro de las cards */
+.home-card-desc {
+  color: #bbb;
+  margin-bottom: 10px;
+}
+
+/* Precio de servicios */
+.home-precio {
+  color: #c59d5f;
+  font-weight: 700;
+}
