@@ -30,12 +30,9 @@
   {% endif %}
 
   {% if user.is_superuser or user.rol == "ADMIN" %}
-    <a href="{% url 'clientes' %}">clientes</a>
+    <a href="{% url 'clientes' %}">Clientes</a>
+    <a href="{% url 'dashboard_home' %}">Dashboard</a>
   {% endif %}
-
-  {% if user.is_authenticated and user.is_staff %}
-  <a href="{% url 'admin:index' %}">Dashboard</a>
-{% endif %}
   
   <a class="logout" href="{% url 'logout' %}">Salir</a>
 {% else %}

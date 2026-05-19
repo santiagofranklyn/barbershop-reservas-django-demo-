@@ -1,0 +1,81 @@
+{% extends 'layouts/dashboard_base.html' %}
+{% load static %}
+{% block title %}{% if reserva %}Editar Reserva{% else %}Nueva Reserva{% endif %}{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/dashboard/reserva_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+  <h1>{% if reserva %}✏ Editar Reserva #{{ reserva.id }}{% else %}➕ Nueva Reserva{% endif %}</h1>
+  <p><a href="{% url 'dashboard_reservas' %}" class="back-link">← Volver a reservas</a></p>
+</div>
+
+<div class="dash-form-card">
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label>Cliente</label>
+      <select name="cliente" required>
+        <option value="">Selecciona un cliente</option>
+        {% for u in clientes %}
+          <option value="{{ u.id }}" {% if reserva and reserva.cliente_id == u.id %}selected{% endif %}>
+            {{ u.get_full_name|default:u.username }} ({{ u.username }})
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Barbero</label>
+      <select name="barbero" required>
+        <option value="">Selecciona un barbero</option>
+        {% for b in barberos %}
+          <option value="{{ b.id }}" {% if reserva and reserva.barbero_id == b.id %}selected{% endif %}>{{ b }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Servicio</label>
+      <select name="servicio" required>
+        <option value="">Selecciona un servicio</option>
+        {% for s in servicios %}
+          <option value="{{ s.id }}" {% if reserva and reserva.servicio_id == s.id %}selected{% endif %}>
+            {{ s.nombre }} — ${{ s.precio }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Fecha</label>
+        <input type="date" name="fecha" value="{{ reserva.fecha|default:'' }}" required>
+      </div>
+      <div class="form-group">
+        <label>Hora</label>
+        <input type="time" name="hora" value="{{ reserva.hora|default:'' }}" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Estado</label>
+      <select name="estado" required>
+        <option value="PENDIENTE"  {% if reserva.estado == 'PENDIENTE'  %}selected{% endif %}>Pendiente</option>
+        <option value="CONFIRMADA" {% if reserva.estado == 'CONFIRMADA' %}selected{% endif %}>Confirmada</option>
+        <option value="RECHAZADA"  {% if reserva.estado == 'RECHAZADA'  %}selected{% endif %}>Rechazada</option>
+        <option value="CANCELADA"  {% if reserva.estado == 'CANCELADA'  %}selected{% endif %}>Cancelada</option>
+      </select>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-dash btn-primary">
+        {% if reserva %}💾 Guardar cambios{% else %}➕ Crear reserva{% endif %}
+      </button>
+      <a href="{% url 'dashboard_reservas' %}" class="btn-dash btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

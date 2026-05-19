@@ -1,0 +1,40 @@
+/* ===== CONFIRMAR ELIMINAR ===== */
+
+.confirm-card {
+  background: #1c1c1c;
+  border: 1px solid #5f1f1f;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 480px;
+  text-align: center;
+}
+
+.confirm-card .confirm-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.confirm-card h2 {
+  color: #e05c5c;
+  margin: 0 0 10px 0;
+}
+
+.confirm-card p {
+  color: #aaa;
+  margin-bottom: 24px;
+}
+
+.confirm-warning {
+  color: #e05c5c;
+  font-size: 13px;
+}
+
+.confirm-card .form-actions {
+  justify-content: center;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}

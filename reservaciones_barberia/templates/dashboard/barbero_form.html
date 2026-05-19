@@ -1,0 +1,98 @@
+{% extends 'layouts/dashboard_base.html' %}
+{% load static %}
+{% block title %}{% if barbero %}Editar Barbero{% else %}Nuevo Barbero{% endif %}{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/dashboard/barbero_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+  <h1>{% if barbero %}✏ Editar Barbero{% else %}➕ Nuevo Barbero{% endif %}</h1>
+  <p><a href="{% url 'dashboard_barberos' %}" class="back-link">← Volver a barberos</a></p>
+</div>
+
+<div class="dash-form-card">
+  <form method="POST">
+    {% csrf_token %}
+
+    {% if not barbero %}
+    <p class="form-section-label">DATOS DE ACCESO (cuenta de usuario)</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" name="first_name" placeholder="Nombre" value="{{ form_data.first_name|default:'' }}">
+      </div>
+      <div class="form-group">
+        <label>Apellido</label>
+        <input type="text" name="last_name" placeholder="Apellido" value="{{ form_data.last_name|default:'' }}">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Usuario *</label>
+        <input type="text" name="username" placeholder="nombre_usuario" required value="{{ form_data.username|default:'' }}">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="correo@ejemplo.com" value="{{ form_data.email|default:'' }}">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Contraseña *</label>
+        <input type="password" name="password1" placeholder="Contraseña" required>
+      </div>
+      <div class="form-group">
+        <label>Confirmar contraseña *</label>
+        <input type="password" name="password2" placeholder="Repite la contraseña" required>
+      </div>
+    </div>
+    <p class="form-section-label mt">DATOS DEL BARBERO</p>
+
+    {% else %}
+    <p class="form-section-label">DATOS DE USUARIO</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" name="first_name" value="{{ barbero.user.first_name }}">
+      </div>
+      <div class="form-group">
+        <label>Apellido</label>
+        <input type="text" name="last_name" value="{{ barbero.user.last_name }}">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" value="{{ barbero.user.email }}">
+      </div>
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input type="text" name="telefono" value="{{ barbero.user.telefono|default:'' }}">
+      </div>
+    </div>
+    <p class="form-section-label mt">DATOS DEL BARBERO</p>
+    {% endif %}
+
+    <div class="form-group">
+      <label>Especialidad</label>
+      <input type="text" name="especialidad" placeholder="Ej: Cortes clásicos, Barbas..." value="{{ barbero.especialidad|default:'' }}">
+    </div>
+
+    <div class="form-group">
+      <div class="form-check">
+        <input type="checkbox" name="disponible" id="disponible"
+               {% if barbero.disponible or not barbero %}checked{% endif %}>
+        <label for="disponible" class="form-check-label">Disponible para reservas</label>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-dash btn-primary">
+        {% if barbero %}💾 Guardar cambios{% else %}➕ Crear barbero{% endif %}
+      </button>
+      <a href="{% url 'dashboard_barberos' %}" class="btn-dash btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'layouts/dashboard_base.html' %}
+{% load static %}
+{% block title %}Servicios{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/dashboard/servicios_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+  <h1>✂ Gestión de Servicios</h1>
+  <p>Administra los servicios que ofrece la barbería.</p>
+</div>
+
+<div class="dash-table-wrapper">
+  <div class="dash-table-header">
+    <h2>Servicios ({{ servicios.count }})</h2>
+    <a href="{% url 'dashboard_servicio_crear' %}" class="btn-dash btn-primary">➕ Nuevo servicio</a>
+  </div>
+  <table class="dash-table">
+    <thead>
+      <tr>
+        <th>#</th><th>Nombre</th><th>Precio</th><th>Duración</th><th>Estado</th><th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in servicios %}
+        <tr>
+          <td>{{ s.id }}</td>
+          <td>{{ s.nombre }}</td>
+          <td>${{ s.precio }}</td>
+          <td>{{ s.duracion_minutos }} min</td>
+          <td>
+            {% if s.activo %}
+              <span class="badge badge-activo">Activo</span>
+            {% else %}
+              <span class="badge badge-inactivo">Inactivo</span>
+            {% endif %}
+          </td>
+          <td>
+            <div class="btn-group">
+              <a href="{% url 'dashboard_servicio_editar' s.id %}" class="btn-dash btn-secondary btn-sm">✏ Editar</a>
+              <a href="{% url 'dashboard_servicio_toggle' s.id %}" class="btn-dash btn-warning btn-sm">
+                {% if s.activo %}⏸ Desactivar{% else %}▶ Activar{% endif %}
+              </a>
+              <a href="{% url 'dashboard_servicio_eliminar' s.id %}" class="btn-dash btn-danger btn-sm">🗑</a>
+            </div>
+          </td>
+        </tr>
+      {% empty %}
+        <tr class="empty-row"><td colspan="6">No hay servicios registrados.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

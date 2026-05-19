@@ -1,0 +1,54 @@
+{% extends 'layouts/dashboard_base.html' %}
+{% load static %}
+{% block title %}Barberos{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/dashboard/barberos_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+  <h1>💈 Gestión de Barberos</h1>
+  <p>Crea, edita y administra los barberos del negocio.</p>
+</div>
+
+<div class="dash-table-wrapper">
+  <div class="dash-table-header">
+    <h2>Barberos ({{ barberos.count }})</h2>
+    <a href="{% url 'dashboard_barbero_crear' %}" class="btn-dash btn-primary">➕ Nuevo barbero</a>
+  </div>
+  <table class="dash-table">
+    <thead>
+      <tr>
+        <th>#</th><th>Nombre</th><th>Usuario</th><th>Email</th><th>Especialidad</th><th>Disponible</th><th>Reservas</th><th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for b in barberos %}
+        <tr>
+          <td>{{ b.id }}</td>
+          <td>{{ b.user.get_full_name|default:b.user.username }}</td>
+          <td>{{ b.user.username }}</td>
+          <td>{{ b.user.email|default:"—" }}</td>
+          <td>{{ b.especialidad|default:"—" }}</td>
+          <td>
+            {% if b.disponible %}
+              <span class="badge badge-activo">Sí</span>
+            {% else %}
+              <span class="badge badge-inactivo">No</span>
+            {% endif %}
+          </td>
+          <td>{{ b.reservas_barbero.count }}</td>
+          <td>
+            <div class="btn-group">
+              <a href="{% url 'dashboard_barbero_editar' b.id %}" class="btn-dash btn-secondary btn-sm">✏ Editar</a>
+              <a href="{% url 'dashboard_barbero_eliminar' b.id %}" class="btn-dash btn-danger btn-sm">🗑</a>
+            </div>
+          </td>
+        </tr>
+      {% empty %}
+        <tr class="empty-row"><td colspan="8">No hay barberos registrados.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

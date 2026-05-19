@@ -1,0 +1,27 @@
+{% extends 'layouts/dashboard_base.html' %}
+{% load static %}
+{% block title %}Confirmar eliminación{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/dashboard/confirmar_eliminar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+  <h1>🗑 Confirmar eliminación</h1>
+</div>
+
+<div class="confirm-card">
+  <div class="confirm-icon">⚠️</div>
+  <h2>¿Estás seguro?</h2>
+  <p>{{ mensaje }}</p>
+  <p class="confirm-warning">Esta acción no se puede deshacer.</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-actions">
+      <button type="submit" class="btn-dash btn-danger">Sí, eliminar</button>
+      <a href="{{ cancelar_url }}" class="btn-dash btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

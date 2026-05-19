@@ -15,7 +15,7 @@
     {% for s in servicios %}
       <div class="card">
         <h2 class="servicio-nombre">{{ s.nombre }}</h2>
-        <p class="servicio-desc">{{ s.descripcion }}</p>
+        <p class="servicio-desc">Duración: {{ s.duracion_minutos }} min</p>
         <p class="servicio-precio">RD$ {{ s.precio }}</p>
         <p class="servicio-duracion">Duración: {{ s.duracion_minutos }} min</p>
 

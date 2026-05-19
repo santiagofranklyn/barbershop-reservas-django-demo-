@@ -1,0 +1,47 @@
+{% extends 'layouts/dashboard_base.html' %}
+{% load static %}
+{% block title %}Usuarios{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/dashboard/usuarios_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+  <h1>👥 Gestión de Usuarios</h1>
+  <p>Administra todos los usuarios del sistema.</p>
+</div>
+
+<div class="dash-table-wrapper">
+  <div class="dash-table-header">
+    <h2>Usuarios ({{ usuarios.count }})</h2>
+    <a href="{% url 'dashboard_usuario_crear' %}" class="btn-dash btn-primary">➕ Nuevo usuario</a>
+  </div>
+  <table class="dash-table">
+    <thead>
+      <tr>
+        <th>#</th><th>Usuario</th><th>Nombre completo</th><th>Email</th><th>Teléfono</th><th>Rol</th><th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in usuarios %}
+        <tr>
+          <td>{{ u.id }}</td>
+          <td>{{ u.username }}</td>
+          <td>{{ u.get_full_name|default:"—" }}</td>
+          <td>{{ u.email|default:"—" }}</td>
+          <td>{{ u.telefono|default:"—" }}</td>
+          <td><span class="badge badge-{{ u.rol|lower }}">{{ u.get_rol_display }}</span></td>
+          <td>
+            <div class="btn-group">
+              <a href="{% url 'dashboard_usuario_editar' u.id %}" class="btn-dash btn-secondary btn-sm">✏ Editar</a>
+              <a href="{% url 'dashboard_usuario_eliminar' u.id %}" class="btn-dash btn-danger btn-sm">🗑</a>
+            </div>
+          </td>
+        </tr>
+      {% empty %}
+        <tr class="empty-row"><td colspan="7">No hay usuarios registrados.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

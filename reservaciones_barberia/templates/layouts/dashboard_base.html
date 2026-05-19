@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Dashboard{% endblock %} — BarberShop Admin</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/dashboard/dashboard.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">✂ BarberShop <span class="navbar-subtitle">/ Admin</span></div>
+    <div class="nav-links">
+      <a href="{% url 'home' %}">← Ver sitio</a>
+      <a class="logout" href="{% url 'logout' %}">Salir</a>
+    </div>
+  </nav>
+
+  <div class="dashboard-wrapper">
+
+    <aside class="dashboard-sidebar">
+      <div class="sidebar-title">Panel de Control</div>
+      <nav class="sidebar-nav">
+        <a href="{% url 'dashboard_home' %}"
+           class="{% if request.resolver_match.url_name == 'dashboard_home' %}active{% endif %}">
+          <span class="sidebar-icon">📊</span> Resumen
+        </a>
+        <hr class="sidebar-divider">
+        <a href="{% url 'dashboard_reservas' %}"
+           class="{% if 'dashboard_reserva' in request.resolver_match.url_name %}active{% endif %}">
+          <span class="sidebar-icon">📅</span> Reservas
+        </a>
+        <hr class="sidebar-divider">
+        <a href="{% url 'dashboard_barberos' %}"
+           class="{% if 'dashboard_barbero' in request.resolver_match.url_name %}active{% endif %}">
+          <span class="sidebar-icon">💈</span> Barberos
+        </a>
+        <a href="{% url 'dashboard_servicios' %}"
+           class="{% if 'dashboard_servicio' in request.resolver_match.url_name %}active{% endif %}">
+          <span class="sidebar-icon">✂</span> Servicios
+        </a>
+        <a href="{% url 'dashboard_usuarios' %}"
+           class="{% if 'dashboard_usuario' in request.resolver_match.url_name %}active{% endif %}">
+          <span class="sidebar-icon">👥</span> Usuarios
+        </a>
+      </nav>
+    </aside>
+
+    <main class="dashboard-content">
+      {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+{% extends 'layouts/dashboard_base.html' %}
+{% load static %}
+{% block title %}Resumen{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/dashboard/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+  <h1>📊 Resumen General</h1>
+  <p>Bienvenido, {{ request.user.get_full_name|default:request.user.username }}. Aquí tienes el estado actual del negocio.</p>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card yellow">
+    <span class="stat-icon">📅</span>
+    <span class="stat-value">{{ total_reservas }}</span>
+    <span class="stat-label">Reservas totales</span>
+  </div>
+  <div class="stat-card yellow">
+    <span class="stat-icon">⏳</span>
+    <span class="stat-value">{{ reservas_pendientes }}</span>
+    <span class="stat-label">Pendientes</span>
+  </div>
+  <div class="stat-card green">
+    <span class="stat-icon">✅</span>
+    <span class="stat-value">{{ reservas_confirmadas }}</span>
+    <span class="stat-label">Confirmadas</span>
+  </div>
+  <div class="stat-card red">
+    <span class="stat-icon">❌</span>
+    <span class="stat-value">{{ reservas_canceladas }}</span>
+    <span class="stat-label">Canceladas / Rechazadas</span>
+  </div>
+  <div class="stat-card blue">
+    <span class="stat-icon">💈</span>
+    <span class="stat-value">{{ total_barberos }}</span>
+    <span class="stat-label">Barberos activos</span>
+  </div>
+  <div class="stat-card blue">
+    <span class="stat-icon">👥</span>
+    <span class="stat-value">{{ total_clientes }}</span>
+    <span class="stat-label">Clientes registrados</span>
+  </div>
+  <div class="stat-card green">
+    <span class="stat-icon">✂</span>
+    <span class="stat-value">{{ total_servicios }}</span>
+    <span class="stat-label">Servicios activos</span>
+  </div>
+</div>
+
+<div class="dash-table-wrapper">
+  <div class="dash-table-header">
+    <h2>Últimas 10 reservas</h2>
+    <a href="{% url 'dashboard_reservas' %}" class="btn-dash btn-secondary btn-sm">Ver todas →</a>
+  </div>
+  <table class="dash-table">
+    <thead>
+      <tr>
+        <th>#</th><th>Cliente</th><th>Barbero</th><th>Servicio</th><th>Fecha</th><th>Hora</th><th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in ultimas_reservas %}
+        <tr>
+          <td>{{ r.id }}</td>
+          <td>{{ r.cliente.get_full_name|default:r.cliente.username }}</td>
+          <td>{{ r.barbero }}</td>
+          <td>{{ r.servicio.nombre }}</td>
+          <td>{{ r.fecha }}</td>
+          <td>{{ r.hora|time:"H:i" }}</td>
+          <td><span class="badge badge-{{ r.estado|lower }}">{{ r.get_estado_display }}</span></td>
+        </tr>
+      {% empty %}
+        <tr class="empty-row"><td colspan="7">No hay reservas aún.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
