@@ -154,7 +154,13 @@ def dashboard_barbero_crear(request):
             last_name=last_name,
             rol="BARBERO",
         )
-        Barbero.objects.create(user=user, especialidad=especialidad, disponible=disponible)
+        barbero = Barbero.objects.create(user=user, especialidad=especialidad, disponible=disponible)
+
+        # Guardar foto si se subió
+        if request.FILES.get("foto"):
+            barbero.foto = request.FILES["foto"]
+            barbero.save()
+
         messages.success(request, f"Barbero {username} creado correctamente.")
         return redirect("dashboard_barberos")
 
@@ -179,8 +185,17 @@ def dashboard_barbero_editar(request, barbero_id):
 
         barbero.especialidad = request.POST.get("especialidad", "")
         barbero.disponible   = request.POST.get("disponible") == "on"
-        barbero.save()
 
+        # Actualizar foto si se subió una nueva
+        if request.FILES.get("foto"):
+            barbero.foto = request.FILES["foto"]
+
+        # Eliminar foto si el admin marcó "eliminar foto"
+        if request.POST.get("eliminar_foto") and barbero.foto:
+            barbero.foto.delete(save=False)
+            barbero.foto = None
+
+        barbero.save()
         messages.success(request, "Barbero actualizado correctamente.")
         return redirect("dashboard_barberos")
 

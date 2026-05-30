@@ -22,9 +22,10 @@ class Usuario(AbstractUser):  #con esto estoy creando un usuario personalizado q
 
 
 class Barbero(models.Model):
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE) #esto es la relacion del usuario con el barbero que es de uno solo 
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     especialidad = models.CharField(max_length=100, blank=True, null=True)
     disponible = models.BooleanField(default=True)
+    foto = models.ImageField(upload_to='barberos/', blank=True, null=True)  # foto de perfil
 
     def __str__(self):
         return self.user.get_full_name() or self.user.username

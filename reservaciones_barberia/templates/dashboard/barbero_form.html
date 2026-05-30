@@ -12,7 +12,7 @@
 </div>
 
 <div class="dash-form-card">
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
     {% if not barbero %}
@@ -77,6 +77,22 @@
     <div class="form-group">
       <label>Especialidad</label>
       <input type="text" name="especialidad" placeholder="Ej: Cortes clásicos, Barbas..." value="{{ barbero.especialidad|default:'' }}">
+    </div>
+
+    <div class="form-group">
+      <label>Foto del barbero</label>
+      {% if barbero.foto %}
+        <div class="foto-preview">
+          <img src="{{ barbero.foto.url }}" alt="Foto actual">
+          <p class="foto-nombre">Foto actual: {{ barbero.foto.name }}</p>
+        </div>
+        <div class="form-check" style="margin-bottom:10px;">
+          <input type="checkbox" name="eliminar_foto" id="eliminar_foto">
+          <label for="eliminar_foto" class="form-check-label">Eliminar foto actual</label>
+        </div>
+      {% endif %}
+      <input type="file" name="foto" accept="image/*">
+      <p class="input-hint">Formatos: JPG, PNG, WEBP. Tamaño recomendado: 400x400px.</p>
     </div>
 
     <div class="form-group">

@@ -39,32 +39,27 @@
 
   {% for b in barberos %}
 
-  <div class="card">
+  <div class="card barbero-card">
 
-    <h3 class="home-card-title">
-  {{ b.user.get_full_name|default:b.user.username }}
-</h3>
+    {% if b.foto %}
+      <img src="{{ b.foto.url }}" alt="{{ b }}" class="barbero-foto">
+    {% else %}
+      <div class="barbero-foto-placeholder">💈</div>
+    {% endif %}
 
-<p class="home-card-desc">
-   {{ b.especialidad|default:"Sin especialidad" }}
-</p>
-
-<p class="home-card-desc">
-  📞 {{ b.user.telefono|default:"No disponible" }}
-</p>
-
-    <a href="{% url 'reservas' %}">
-      <button class="btn">
-        Reservar
-      </button>
-    </a>
+    <div class="barbero-info">
+      <h3 class="home-card-title">{{ b.user.get_full_name|default:b.user.username }}</h3>
+      <p class="home-card-desc">{{ b.especialidad|default:"Sin especialidad" }}</p>
+      <p class="home-card-desc">📞 {{ b.user.telefono|default:"No disponible" }}</p>
+      <a href="{% url 'reservas' %}">
+        <button class="btn">Reservar</button>
+      </a>
+    </div>
 
   </div>
 
   {% empty %}
-
   <p>No hay barberos disponibles.</p>
-
   {% endfor %}
 
 </div>

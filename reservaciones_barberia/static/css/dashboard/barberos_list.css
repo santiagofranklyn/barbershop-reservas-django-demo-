@@ -1,0 +1,21 @@
+/* ===== BARBEROS LIST ===== */
+
+/* Foto miniatura en la tabla */
+.tabla-foto {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.tabla-foto-placeholder {
+  width: 48px;
+  height: 48px;
+  background: #2a2a2a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}

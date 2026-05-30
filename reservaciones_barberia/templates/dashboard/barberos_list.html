@@ -19,13 +19,20 @@
   <table class="dash-table">
     <thead>
       <tr>
-        <th>#</th><th>Nombre</th><th>Usuario</th><th>Email</th><th>Especialidad</th><th>Disponible</th><th>Reservas</th><th>Acciones</th>
+        <th>#</th><th>Foto</th><th>Nombre</th><th>Usuario</th><th>Email</th><th>Especialidad</th><th>Disponible</th><th>Reservas</th><th>Acciones</th>
       </tr>
     </thead>
     <tbody>
       {% for b in barberos %}
         <tr>
           <td>{{ b.id }}</td>
+          <td>
+            {% if b.foto %}
+              <img src="{{ b.foto.url }}" alt="{{ b }}" class="tabla-foto">
+            {% else %}
+              <div class="tabla-foto-placeholder">💈</div>
+            {% endif %}
+          </td>
           <td>{{ b.user.get_full_name|default:b.user.username }}</td>
           <td>{{ b.user.username }}</td>
           <td>{{ b.user.email|default:"—" }}</td>
@@ -46,7 +53,7 @@
           </td>
         </tr>
       {% empty %}
-        <tr class="empty-row"><td colspan="8">No hay barberos registrados.</td></tr>
+        <tr class="empty-row"><td colspan="9">No hay barberos registrados.</td></tr>
       {% endfor %}
     </tbody>
   </table>
